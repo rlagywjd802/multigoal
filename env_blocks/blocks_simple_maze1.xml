@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<mujoco model="blocks">
+	<compiler angle="radian" inertiafromgeom="true" texturedir="texture/"/>
+	<option gravity="0 0 -9.8" iterations="20" timestep="0.002" viscosity="0"/>
+	<asset>
+		<material name="MatGnd" reflectance="0.0" rgba=".5 .55 .5 1" shininess=".2" specular=".3"/>
+		<material name="MNIST_mat_1"/>
+	</asset>
+	<worldbody>
+		<light castshadow="false" cutoff="40" diffuse=".4 .4 .4" dir="0 0 -1" directional="true" exponent="10" pos="0 0 .9" specular=".7 .7 .7"/>
+		<geom conaffinity="1" contype="1" friction="1 0.005 0.0001" material="MatGnd" name="tableTop" pos="0 0 0" rgba=".6 .6 .5 1" size="2.4 2.4 0.02" type="plane"/>
+		<geom conaffinity="1" contype="1" material="MatGnd" name="tableRoof" pos="0.0 0.0 3.6" rgba=".6 .6 .5 1" size="2.4 2.4 0.04" type="plane" zaxis="0 0 -1"/>
+
+
+		<geom conaffinity="1" contype="1" material="MatGnd" name="table_wall_1" pos="2.4 0.0 0.6" rgba=".6 .6 .5 1" size="4.8 2.4 0.04" type="plane" zaxis="-1 0 0"/>
+		<geom conaffinity="1" contype="1" material="MatGnd" name="table_wall_2" pos="-2.4 0.0 0.6" rgba=".6 .6 .5 1" size="4.8 2.4 0.04" type="plane" zaxis="1 0 0"/>
+		<geom conaffinity="1" contype="1" material="MatGnd" name="table_wall_3" pos="0.0 2.4 0.6" rgba=".6 .6 .5 1" size="2.4 4.8 0.04" type="plane" zaxis="0 -1 0"/>
+		<geom conaffinity="1" contype="1" material="MatGnd" name="table_wall_4" pos="0.0 -2.4 0.6" rgba=".6 .6 .5 1" size="2.4 4.8 0.04" type="plane" zaxis="0 1 0"/>
+
+
+		<geom conaffinity="1" contype="1" material="MatGnd" name="maze_wall_0" pos="0. 0.2 0." rgba=".1 .1 .1 1" size="1.2 .3 0.025" type="box" zaxis="0 -1 0"/>
+		<geom conaffinity="1" contype="1" material="MatGnd" name="maze_wall_1" pos="0. -0.2 0." rgba=".1 .1 .1 1" size="1.2 .3 0.025" type="box" zaxis="0 -1 0"/>
+		<geom conaffinity="1" contype="1" material="MatGnd" name="maze_wall_2" pos="-1.2. 0 0." rgba=".1 .1 .1 1" size="0.3 .225 0.025" type="box" zaxis="1 0 0"/>
+
+		<geom conaffinity="1" contype="1" material="MatGnd" name="maze_wall_3" pos="0.4 -1.2 0." rgba=".1 .1 .1 1" size="2.0 .3 0.025" type="box" zaxis="0 -1 0"/>
+		<geom conaffinity="1" contype="1" material="MatGnd" name="maze_wall_4" pos="0.4 1.2 0." rgba=".1 .1 .1 1" size="2.0 .3 0.025" type="box" zaxis="0 -1 0"/>
+
+
+		<body euler="0.0 0.0 0.0" name="block" pos="-1.0 0.0 0.08">
+			<geom conaffinity="1" contype="1" friction="1 0.005 0.0001" material="MNIST_mat_1" name="block" rgba="1 0 0 1" size="0.08 0.08 0.08" type="box" user="1"/>
+			<joint armature="0" damping="0" limited="false" name="blocks_joint_0" type="free" user="010"/>
+		</body>
+
+		<body euler="0.0 0.0 0.0" name="goal" pos="0.0 0.0 0.0">
+			<geom conaffinity="0" contype="0" friction="1 0.005 0.0001" name="goal" rgba="0. 0. 1.0 1" size="0.08" type="sphere" user="1"/>
+			<!--<joint armature="0" damping="0" limited="false" name="goal_joint_0" type="free" user="010"/>-->
+			<joint armature="0" axis="1 0 0" damping="0" limited="true" name="target_x" pos="0 0 0" range="-2.4 2.4" ref="0."  stiffness="0" type="slide"/>
+			<joint armature="0" axis="0 1 0" damping="0" limited="true" name="target_y" pos="0 0 0" range="-2.4 2.4" ref="0." stiffness="0" type="slide"/>
+		</body>
+	</worldbody>
+	<!--<actuator>-->
+		<!--<general ctrllimited="true" ctrlrange="-1.0 1.0" gear="1 0 0 0 0 0" joint="blocks_joint_0"/>-->
+		<!--<general ctrllimited="true" ctrlrange="-1.0 1.0" gear="0 1 0 0 0 0" joint="blocks_joint_0"/>-->
+		<!--<general ctrllimited="true" ctrlrange="-1.0 1.0" gear="0 0 1 0 0 0" joint="blocks_joint_0"/>-->
+	<!--</actuator>-->
+</mujoco>
