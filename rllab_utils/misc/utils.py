@@ -478,12 +478,9 @@ def rollout_brownian(env, agents,
     # 현재 agent['hide'].starts에서 p의 확률로 agent['hide'].starts_old에서 1-p의 확률로 random하게 하나를 뽑는다.
     goal, goal_id = agents['hide'].sample_one_goal()
     obs = env.env.env.reload_model(pose=start_pose, goal=goal)
-    print("++++++++++++++++++++++++++++++++++++")
-    # print('start_pose: ', start_pose)
-    # print('goal: ', goal)
-    # print('obs: ', obs)
-    print('start_pose:', start_pose[0][0:2], '     goal:', goal[0][0:2])
-    print('start_pose:', np.array(obs[0][0:2]) * 2.4, '     goal:',np.array(obs[0][-2:]) * 2.4)
+    # print("++++++++++++++++++++++++++++++++++++")
+    # print('start_pose:', start_pose[0][0:2], '     goal:', goal[0][0:2])
+    # print('start_pose:', np.array(obs[0][0:2]) * 2.4, '     goal:',np.array(obs[0][-2:]) * 2.4)
 
     ##############################################
     ## SEEK AGENT
@@ -515,7 +512,7 @@ def rollout_brownian(env, agents,
     while seek_path_length < max_path_length:
         # if seek_path_length < 2: print('seek obs: ', obs)
         a, agent_info = agents['seek'].get_action(obs)
-        print('action:',a)
+        # print('action:',a)
         if animated:
             env.render()
         obs_next, r, d, env_info = env.step(a)
