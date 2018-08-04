@@ -1,0 +1,137 @@
+env_name: BlocksSimpleXYQ-v0
+env_norm: true
+
+blocks_simple_xml: blocks_simple_maze1.xml
+blocks_multigoal: true
+target: [-1.0, 0.0]
+
+use_hide: true
+use_stop_action: false
+batch_size: 6000 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+iterations: 500
+mode: reach_center_and_stop
+
+taskclassif_adaptive_middle: true
+taskclassif_pool_size: 3000 #Set it roughly half the batch size
+taskclassif_use_allpoints: true
+task_classifier: mlp
+
+# Options for brownian agent
+use_hide_alg: 1 #brownian motion alg for Hide
+starts_adaptive_update_itr: False
+starts_update_every_itr: 10
+hide_tmax: 15 #they had 500 steps for episode and 50 steps for brownian
+r_min: 0.3
+r_max: 0.9
+start_pool_size: 1000 #they had 10000 init starts # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+starts_new_num: 135
+starts_old_num: 65
+starts_new_select_prob: 0.6
+starts_old_max_size: 10000
+brown_act_variance: 0.1
+
+timelen_max: 100
+adaptive_timelen_avg: true
+adaptive_percentile: true
+timelen_avg: null
+timelen_avg_hist_size: 60
+timelen_reward_fun: get_timelen_reward_with_median
+
+hide_baseline_net_params:
+  batchsize: 32
+  conv_filter_sizes: []
+  conv_filters: []
+  conv_pads: []
+  conv_strides: []
+  hidden_sizes: [32, 32, 16]
+  init_std: 1.0
+  max_opt_itr: 20
+  optimizer: LbfgsOptimizer
+  step_size: 0.01
+  use_trust_region: false
+
+hide_fuse_net_params:
+  hidden_nonlinearity: rectify
+  hidden_sizes: [32, 16]
+  output_dimensions: null
+  output_nonlinearities: tanh
+
+hide_obs_net_params:
+- conv_filter_sizes: []
+  conv_filters: []
+  conv_pads: []
+  conv_strides: []
+  hidden_nonlinearity: rectify
+  hidden_sizes: [32]
+  output_nonlinearity: rectify
+
+rew_hide__time_step: -0.01
+rew_hide__actcontrol_middle: 0.95 #Action coeff adjustment
+rew_hide__action_coeff: 0.0
+rew_hide__act_dist_coeff: 0.0
+rew_hide__digit_correct_coeff: 0.0
+
+rew_hide__search_time_coeff: 1.0
+rew_hide__search_time_power: 1.0
+rew_hide__search_force_coeff: 0.0
+
+rew_hide__taskclassif_coeff: 1.0
+rew_hide__taskclassif_power: 1
+rew_hide__taskclassif_middle: 0.5 #does not matter if it is adaptive
+
+rew_seek__center_reached_coeff: 1.0
+rew_seek__action_coeff: 0.0
+rew_seek__time_step: -0.01
+rew_seek__dist2target_coeff: 0.0
+rew_seek__act_dist_coeff: 0.0
+
+
+seek_baseline_net_params:
+  batchsize: 32
+  conv_filter_sizes: []
+  conv_filters: []
+  conv_pads: []
+  conv_strides: []
+  hidden_sizes: [32, 32, 16]
+  init_std: 1.0
+  max_opt_itr: 20
+  optimizer: LbfgsOptimizer
+  step_size: 0.01
+  use_trust_region: false
+
+
+seek_fuse_net_params:
+  hidden_nonlinearity: rectify
+  hidden_sizes: [32, 16]
+  output_dimensions: null
+  output_nonlinearities: tanh
+
+
+seek_obs_net_params:
+- conv_filter_sizes: []
+  conv_filters: []
+  conv_pads: []
+  conv_strides: []
+  hidden_nonlinearity: rectify
+  hidden_sizes: [32]
+  output_nonlinearity: rectify
+
+
+train_seek_every: 1
+record_video: true
+show_rollout_chance: 0.001
+
+test_episodes_num: 20
+render_every_iterations: 10
+render_rollouts_num: 1
+
+# Options for SQL
+max_replay_buffer_size: 10000
+kernel_particles: 16
+kernel_update_ratio: 0.5
+value_n_particles: 16
+td_target_update_interval: 1000
+qf_lr: 0.0003
+policy_lr: 0.0003
+discount: 0.99
+reward_scale: 1.0

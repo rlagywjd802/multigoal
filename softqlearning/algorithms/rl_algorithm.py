@@ -722,7 +722,7 @@ class RLAlgorithm(Algorithm):
                         # - x_init_eplst, y_init_eplst에는 하나의 path의 시작점(normalized)이 들어있다.
                         # - plot 'xy_time' : path의 길이(시간)가 t => 길수록 빨간색
                         # - plot 'xy_tasklabels' : path의 길이(시간)가 timelen_max를 넘는지 아닌지가 r
-                        start_pose, done, path_length = self.sampler.sample_sql(animated=True) ## add reward shaping and plotting
+                        start_pose, done, path_length = self.sampler.sample_sql(animated=False) ## add reward shaping and plotting
                         if done:
                             print("---------------------->done: path_length:", path_length)
                             x_init_eplst.append(start_pose[0][0]/2.4)
